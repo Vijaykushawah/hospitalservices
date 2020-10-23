@@ -1,0 +1,32 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="overlay">
+<div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">  <div class="toggle"> {% include 'todo/modelpopuptodo.html' %} </div>
+<h4 class="text-info"></h4>
+{% if success %}
+<h4 class="p-3 mb-2 bg-success text-white">Email sent Successfully.</h4>{% endif %}
+{% if error %}
+<h5 class="p-3 mb-2 bg-danger text-white">{{error}}</h5>{% endif %}
+<form action="{% url 'sendmailtodo' %}" method="post">
+  {% csrf_token %}
+EMAIL:<br>
+<input type="email" name="from"><br>
+PASSWORD:<br>
+<input type="password" name="pass"><br>
+TO:<br>
+<input type="text" name="to"><br>
+SUBJECT:<br>
+<input type="text" name="subject" size="50"><br><br>
+BODY:<br>
+<textarea class="form-control" id="body" name="body" rows="3"></textarea>
+<input type="submit" class="btn btn-success" value="SEND">
+<input type="reset" class="btn btn-success" value="RESET">
+</form>
+
+
+
+</div></div></div></div>
+{% endblock %}

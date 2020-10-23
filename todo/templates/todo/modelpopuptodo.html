@@ -1,0 +1,47 @@
+
+
+<!-- Bootstrap -->
+
+<center>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#MyPopup">
+        Open Menu</button>
+</center>
+<!-- Modal Popup -->
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content bg-warning">
+            <div class="modal-header bg-info"><h3 class="modal-title ">
+MAIN MENU
+            </h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;</button>
+
+            </div>
+            <div style="overflow-y: scroll; height:400px;" class="modal-body bg-secondary">
+              <h5> <a class="nav-link bg-success" href="{% url 'mybiodatahometodo'  %}">SEARCH PARTNER</a>
+                <a class="nav-link bg-success" href="{% url 'createtodo'  %}">CREATE TASK</a>
+    <a class="nav-link bg-success" href="{% url 'currenttodos'  %}">PEDING TASKS</a>
+    <a class="nav-link bg-success" href="{% url 'completedtodos'  %}">COMPLETED TASKS</a>
+    <a class="nav-link bg-success" href="{% url 'createbiodatatodo'  %}">CREATE BIODATA</a>
+<a class="nav-link bg-success" href="{% url 'mybiodatatodo'  %}">UPDATE BIODATA</a>
+<a class="nav-link bg-success" href="{% url 'mybiodataprivacytodo'  %}">CHANGE BIODATA PRIVACY</a>
+<a class="nav-link bg-success" href="{% url 'mybiodatadownloadtodo'  %}">DOWNLOAD BIODATA </a>
+    <a class="nav-link bg-success" href="{% url 'portfoliotodo'  %}">PORTFOLIO</a>
+    <a class="nav-link bg-success" href="{% url 'translatortodo' %}">LANGUAGE TRANSLATOR</a>
+    <a class="nav-link bg-success" href="{% url 'passwordgeneratortodo' %}">PASSWORD GENERATOR</a>
+    <a class="nav-link bg-success" href="{% url 'abouttodo'  %}">ABOUT</a>
+    <a class="nav-link bg-success" href="{% url 'contacttodo'  %}">CONTACT</a>
+    <a class="nav-link bg-success" href="{% url 'signupuser'  %}">SIGNUP</a>
+    <a class="nav-link bg-success" href="{% url 'myprofiletodo'  %}">MY PROFILE</a>
+    <a class="nav-link bg-success" href="{% url 'sendmailtodo'  %}">EMAIL</a>
+
+                </h5>
+            </div>
+            <div class="modal-footer bg-info">
+                <input type="button" id="btnClosePopup" value="CLOSE" class="btn btn-danger close" onclick="CheckChecked();" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Popup -->

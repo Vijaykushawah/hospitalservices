@@ -1,0 +1,79 @@
+<br><br><br><br>
+<style>
+
+table,td,th{
+border: 1px solid black;
+
+}</style>
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="panel panel-primary col-md-5" draggable="true"   style="max-height: 300px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;">
+      <div class="panel-heading" style="text-align:center;">
+        <h5 class="panel-title  font-weight-bold text-info">RECENT DOCTORS</h5>
+      </div>
+      <table class="table table-hover bordered" id="dev-table" style="border: 1px solid black;">
+        <thead>
+          <tr class="bg-primary">
+            <th>Name</th>
+            <th>Department</th>
+            <th>Mobile</th>
+            <th>Status</th>
+
+          </tr>
+        </thead>
+        {% for d in doctors %}
+        <tr class="text-info bg-white">
+          <td> {{d.get_name}}</td>
+          <td>{{d.department}}</td>
+          <td>{{d.mobile}}</td>
+          {%if d.status%}
+          <td> <span class="label bg-primary text-white">Permanent</span></td>
+          {% else %}
+          <td> <span class="label bg-success text-white">On Hold</span></td>
+          {% endif %}
+
+        </tr>
+        {% endfor %}
+      </table><hr><br>
+    </div>
+
+    <div class="panel panel-primary col-md-5" draggable="true"  style="max-height: 300px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;">
+      <div class="panel-heading" style="text-align:center;">
+        <h5 class="panel-title font-weight-bold text-info ">RECENT PATIENTS</h5>
+      </div>
+      <table class="table table-hover bordered" id="dev-table" style="border: 1px solid black;">
+        <thead>
+          <tr class="bg-primary">
+            <th>Name</th>
+            <th>Symptoms</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Status</th>
+
+          </tr>
+        </thead>
+        {% for p in patients %}
+        <tr class="text-info bg-white" style="border: 1px solid black;">
+          <td> {{p.get_name}}</td>
+          <td>{{p.symptoms}}</td>
+          <td>{{p.mobile}}</td>
+          <td>{{p.address}}</td>
+          {%if p.status%}
+          <td> <span class="label bg-primary text-white">Admitted</span></td>
+          {% else %}
+          <td> <span class="label bg-success text-white">On Hold</span></td>
+          {% endif %}
+
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>

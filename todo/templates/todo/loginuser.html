@@ -1,0 +1,23 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="overlay">
+<div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+        {% if error %}  <h2 class="p-3 mb-2 bg-danger text-white">{{error}}</h2>
+        {% endif %}
+<h5 class="text-primary">ENTER USERNAME AND PASSWORD:</h5>
+
+<form method="POST">
+  {% csrf_token %}
+{{form|crispy}}
+<button type="submit" class="btn btn-success">LOGIN</button>
+</form><a class="btn  btn-google link-primary bg-info text-white " href="{% url 'google_login' %}"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> LOGIN WITH GOOGLE</a>
+ or <a href="{% url 'signupuser' %}">SIGNUP</a> here!
+</div></div>
+<br><br>
+    {% include 'todo/admin-doctor-patient-card.html' %}
+</div></div>
+
+{% endblock %}

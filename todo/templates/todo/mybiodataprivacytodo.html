@@ -1,0 +1,28 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="overlay">
+<div class="container">
+
+      <div class="row justify-content-center">
+        <div >
+            <div class="toggle"> {% include 'todo/modelpopuptodo.html' %} </div>
+<h5 class="text-primary">UPDATE PRIVACY</h5>
+{% if error %}
+<h5 class="p-3 mb-2 bg-danger text-white">{{error}}
+</h5>{% endif %}
+{% if msg %}
+<h5 class="p-3 mb-2 alert alert-success text-white">{{msg}}
+</h5>{% endif %}
+<form method="POST" enctype="multipart/form-data" class="table thead-dark">
+  {% csrf_token %}
+{{form.as_ul}}
+<button type="submit" class="btn btn-success">UPDATE</button>
+</form>
+</div>
+
+</div>
+<p class="text-info">
+Please Go to MANAGE BIODATA -> UPDATE BIODATA -> , here you will get Biodata id created by you.
+</p></div></div>
+{% endblock %}

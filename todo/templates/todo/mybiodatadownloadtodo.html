@@ -1,0 +1,225 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+{% extends 'todo/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="overlay">
+
+      <div class="row justify-content-center">
+
+        {% if error %}
+        <h5 class="p-3 mb-2 bg-warning text-white">{{error}}<br><p></p><div>
+          <p class="text-info">
+          Please Go to MANAGE BIODATA -> UPDATE BIODATA -> , here you will get Biodata id created by you.
+          </p>
+        </div></h5>{% endif %}
+<h5 class="text-primary">ENTER BIODATA ID:</h5>
+
+
+<form method="POST" action="{% url 'mybiodatadownloadtodo' %}">
+  {% csrf_token %}
+<input type="text" id="biodataid" name="biodataid">
+<button type="submit" class="btn btn-success">SEARCH</button>
+</form>
+{% if found %}
+<div class="col-10 downloadbiodata  justify-content-center"><button  class="btn btn-outline-secondary btn-lg bg-info downloadbiodatabtn">DOWNLOAD</button>
+<div class="html-content" id="html-content">
+  <table style="max-width:80%;background:white;" class=" ">
+    {% load static %}
+  <tbody>
+    <th colspan="2">
+  <img style="width:400px;height:220px;" src="{{todo.photo.url}}" class=""  alt="iMAGE NOT UPLOADEDS">
+    </th>
+  <th colspan="2" class="text-primary">{{todo.name}}</th>
+<tr class="text-primary"><td>Basic Details
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/basicDetail.png' %}">
+  <td></tr>
+  {% if todo.created_by %}
+  <tr>
+    <td class="font-weight-bold text-danger  bg-active">CREATED BY:</td>
+    <td class="text-success">{{todo.created_by}}</td>
+  </tr>
+  {% endif %}
+
+  {% if todo.name %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">NAME:</td>
+  <td class="text-success"><mark>{{todo.name}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.age %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">AGE:</td>
+  <td class="text-success">{{todo.age}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.gender %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">GENDER:</td>
+  <td class="text-success">{{todo.gender}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.height %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">HEIGHT:</td>
+  <td class="text-success">{{todo.height}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.body_Type %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">Body Type:</td>
+  <td class="text-success">{{todo.body_Type}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.complexion %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">COMPLEXION:</td>
+  <td class="text-success">{{todo.complexion}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.mother_Toung %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">MOTHER TOUNG:</td>
+  <td class="text-success">{{todo.mother_Toung}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.social %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">SOCIAL:</td>
+  <td class="text-success">{{todo.social}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.cast %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">CAST:</td>
+  <td class="text-success">{{todo.cast}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.manglik %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">MANGLIK:</td>
+  <td class="text-success">{{todo.manglik}}</td>
+  </tr>
+  {% endif %}
+
+  {% if todo.religion %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">RELIGION:</td>
+  <td class="text-success">{{todo.religion}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.hobbies %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">HOBBIES:</td>
+  <td class="text-success">{{todo.hobbies}}</td>
+  </tr>
+  {% endif %}
+  <th colspan="2" class="text-primary">CAERRE DETAILS
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/careerDetail.png' %}">
+  </th>
+  {% if todo.education %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">EDUCATION:</td>
+  <td class="text-success">{{todo.education}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.profession %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">PROFESSION:</td>
+  <td class="text-success">{{todo.profession}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.profession_type %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">PROFESSION TYPE:</td>
+  <td class="text-success">{{todo.profession_type}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.job_location %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">JOB LOCATION:</td>
+  <td class="text-success">{{todo.job_location}}</td>
+  </tr>
+  {% endif %}
+
+  {% if todo.annual_Income %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">ANNUAL INCOME:</td>
+  <td class="text-success">{{todo.annual_Income}}</td>
+  </tr>
+  {% endif %}
+  <th colspan="2" class="text-primary">FAMILY DETAILS
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/familyDetail.png' %}">
+  </th>
+  {% if todo.father_name %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">FATHER NAME:</td>
+  <td class="text-success">{{todo.father_name}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.father_occupation %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">FATHER OCCUPATION:</td>
+  <td class="text-success">{{todo.father_occupation}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.mother_name %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">MOTHER NAME:</td>
+  <td class="text-success">{{todo.mother_name}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.mother_occupation %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">MOTHER OCCUPATION:</td>
+  <td class="text-success">{{todo.mother_occupation}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.family_details %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">FAMILY DETAILS:</td>
+  <td class="text-success">{{todo.family_details}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.about %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">MORE INFO:</td>
+  <td class="text-success">{{todo.about}}</td>
+  </tr>
+  {% endif %}
+  <th colspan="2" class="text-primary">CONTACT INFO
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/contactDetail.png' %}">
+  </th>
+  {% if todo.contact_number %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">CONTACT NUMBER:</td>
+  <td class="text-success">{{todo.contact_number}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.email_ID %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">EMAIL ID:</td>
+  <td class="text-success">{{todo.email_ID}}</td>
+  </tr>
+  {% endif %}
+  {% if todo.place %}
+  <tr>
+  <td class="font-weight-bold text-danger bg-active">PLACE:</td>
+  <td class="text-success">{{todo.place}}</td>
+  </tr>
+  {% endif %}
+
+
+
+  </tbody>
+  </table>
+
+
+</div>
+
+
+ </div>
+{% endif %}
+</div></div>
+{% endblock %}

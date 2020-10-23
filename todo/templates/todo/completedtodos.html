@@ -1,0 +1,30 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="overlay">
+  <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+              <div class="toggle"> {% include 'todo/modelpopuptodo.html' %} </div>
+            <h5 class="mt-2 text-success font-weight-bold">COMPLETED TASKS({{todos|length}})</h5>
+                      <hr class="mt-0 mb-4">
+<ol class="list-group">
+  {%  for todo in todos %}
+
+  <li class="list-group-item list-group-item-action">{% if todo.important %}<span class="text-dark">{% endif %}<span class="bg-gradient-success text-muted font-weight-bold">{{todo.title}}</span>
+    {% if todo.important %}</span>{% endif %}
+
+  {% if todo.memo %}
+  -<span class="text-">{{todo.memo}}</span>
+  {% endif %}
+  </li>
+<span class="text-secondary">Completed at:
+  <span class="text-danger">{{ todo.datecompleted|date:'M j Y H:i' }}</span>
+</span>
+  {% endfor %}
+  </ol>
+  <button class="btn btn-outline-secondary btn-lg bg-info "><a target="_blank" style="text-decoration:none;color:#ffffff;" href="{% url 'exportcompledatatodo' %}">Export CSV</a></button>
+  <button class="btn btn-outline-secondary btn-lg bg-info "><a target="_blank" style="text-decoration:none;color:#ffffff;" href="{% url 'exportexcelcompledatatodo' %}">Export EXCEL</a></button>
+
+  </div></div></div></div>
+{% endblock %}

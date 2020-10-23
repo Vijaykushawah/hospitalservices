@@ -1,0 +1,81 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="container"></div>
+<div class="overlay">
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+  }
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+</style>
+<div class="text-center" style="margin-bottom:0px;">
+  <br>
+  {% if error %}
+  <h5 class="display-4 text-info" style="text-align:center;">{{error}}</h5>
+  {% endif %}
+  <hr class="my-4">
+  <p  class="text-info">Sorry,You can access various features after Login/SignUp.</p>
+  <p class="lead">
+    <a class="btn btn-primary  btn-lg" href="/usersignup" role="button">SIGNUP</a>
+    <a class="btn btn-primary bg-success btn-lg" href="/userlogin" role="button">LOGIN</a>
+  </p>
+  <br><br><br><br>
+  <br><br>
+
+  <hr>
+</div>
+
+<!-- <div class="grid-container bg-white">
+    <div class="grid-item"><br>
+      <div class="card">
+        <img src="{% static "todo/images/admin.png" %}" alt="NA" style="width:100%">
+        <p class="title">ADMIN</p>
+        <p><button><a href="/userclick">View</a></button></p>
+      </div>
+
+    </div>
+
+    <div class="grid-item"><br>
+      <div class="card">
+        <img src="{% static "todo/images/doctor.png" %}" alt="NA" style="width:100%">
+        <p class="title">DOCTOR</p>
+        <p><button><a href="/userclick">View</a></button></p>
+      </div>
+    </div>
+
+    <div class="grid-item"><br>
+      <div class="card">
+        <img src="{% static "todo/images/patient.jpg" %}" alt="NA" style="width:100%">
+        <p class="title">PATIENT</p>
+        <p><button><a href="/userclick">View</a></button></p>
+      </div>
+    </div>
+<br><br> -->
+{% include 'todo/admin-doctor-patient-card.html' %}
+  </div>
+
+</div>
+
+{% endblock %}

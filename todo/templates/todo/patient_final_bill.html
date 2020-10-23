@@ -1,0 +1,451 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+
+{% load static %}
+{% load widget_tweaks %}
+<div class="container"></div>
+<div class="overlay">
+
+
+{% load static %}
+<style >
+    a:link {
+      text-decoration: none;
+    }
+
+    a {
+      color: white;
+    }
+
+    a:hover {
+      color: white;
+    }
+
+
+
+
+
+    p {
+      text-align: center;
+
+    }
+    .menu {
+      background: #5bc995;
+      height: 100vh;
+      width: 240px;
+
+      top: 80px;
+      left: 0;
+      z-index: 5;
+      outline: none;
+    }
+    .menu .avatar {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 2em 0.5em;
+      text-align: center;
+    }
+    .menu .avatar img {
+      width: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #ffea92;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+    .menu .avatar h2 {
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+    .menu ul {
+      list-style: none;
+      padding: 0.5em 0;
+      margin: 0;
+    }
+    .menu ul li {
+      padding: 0.5em 1em 0.5em 3em;
+      font-size: 0.95em;
+      font-weight: regular;
+      background-repeat: no-repeat;
+      background-position: left 15px center;
+      background-size: auto 20px;
+      transition: all 0.15s linear;
+      cursor: pointer;
+    }
+    .menu ul li.icon-dashboard {
+      background-image: url("http://www.entypo.com/images//gauge.svg");
+    }
+    .menu ul li.icon-customers {
+      background-image: url("http://www.entypo.com/images//briefcase.svg");
+    }
+    .menu ul li.icon-users {
+      background-image: url("http://www.entypo.com/images//users.svg");
+    }
+    .menu ul li.icon-calendar {
+      background-image: url("http://www.entypo.com/images//calendar.svg");
+    }
+
+    .menu ul li:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    .menu ul li:focus {
+      outline: none;
+    }
+    @media screen and (max-width: 900px) and (min-width: 400px) {
+
+      .menu {
+        width: 80px;
+      }
+      .menu .avatar {
+        padding: 0.5em;
+        position: relative;
+      }
+      .menu .avatar img {
+        width: 60px;
+      }
+      .menu .avatar h2 {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 100px;
+        margin: 0;
+        min-width: 200px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.4);
+        transform: translate3d(-20px, -50%, 0);
+        transition: all 0.15s ease-in-out;
+      }
+      .menu .avatar:hover h2 {
+        opacity: 1;
+        transform: translate3d(0px, -50%, 0);
+      }
+      .menu ul li {
+        height: 60px;
+        background-position: center center;
+        background-size: 30px auto;
+        position: relative;
+      }
+      .menu ul li span {
+        opacity: 0;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0.2em 0.5em;
+        border-radius: 4px;
+        top: 50%;
+        left: 80px;
+        transform: translate3d(-15px, -50%, 0);
+        transition: all 0.15s ease-in-out;
+      }
+      .menu ul li span:before {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 5px solid rgba(0, 0, 0, 0.5);
+        transform: translateY(-50%);
+      }
+      .menu ul li:hover span {
+        opacity: 1;
+        transform: translate3d(0px, -50%, 0);
+      }
+    }
+    @media screen and (max-width: 400px) {
+      body {
+        padding-left: 0;
+      }
+      .menu {
+
+        box-shadow: 0 0 0 100em rgba(0, 0, 0, 0);
+        transform: translate3d(-230px, 0, 0);
+        transition: all 0.3s ease-in-out;
+      }
+      .menu .smartphone-menu-trigger {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        left: 100%;
+        background: #5bc995;
+      }
+      .menu .smartphone-menu-trigger:before,
+      .menu .smartphone-menu-trigger:after {
+        content: '';
+        width: 50%;
+        height: 2px;
+        background: #fff;
+        border-radius: 10px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+      .menu .smartphone-menu-trigger:after {
+        top: 55%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+      .menu ul li {
+        padding: 1em 1em 1em 3em;
+        font-size: 1.2em;
+      }
+      .menu:focus {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 0 0 100em rgba(0, 0, 0, 0.6);
+      }
+      .menu:focus .smartphone-menu-trigger {
+        pointer-events: none;
+      }
+    }
+
+  </style>
+  <div class="row">
+    <div class="col-4">
+<nav class="menu" tabindex="0">
+  <div class="smartphone-menu-trigger"></div>
+  <header class="avatar">
+    <img src="{% static "todo/images/adminpropic.png" %}" />
+    <br><br>
+    <h6>Admin</h6>
+    <h2>{{request.user.first_name}}</h2>
+  </header>
+  <ul>
+    <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/admin-dashboard"><span>Dashboard</span></a> </li>
+    <li tabindex="0" class="icon-customers"> <a style="color:white; text-decoration:none;" href="/admin-doctor"><span>Doctor</span></a></li>
+    <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/admin-patient"><span>Patient</span></a></li>
+    <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/admin-appointment"><span>Appointment</span></a></li>
+  </ul>
+</nav></div><div class="col-8 bg-white">
+
+  <style>
+  .invoice-box {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+  }
+  .download {
+      text-align: center;
+      display: block;
+    }
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+  }
+
+  .invoice-box table td {
+    padding: 5px;
+    vertical-align: top;
+  }
+
+  .invoice-box table tr td:nth-child(2) {
+    text-align: right;
+  }
+
+  .invoice-box table tr.top table td {
+    padding-bottom: 20px;
+  }
+
+  .invoice-box table tr.top table td.title {
+    font-size: 45px;
+    line-height: 45px;
+    color: #333;
+  }
+
+  .invoice-box table tr.information table td {
+    padding-bottom: 40px;
+  }
+
+  .invoice-box table tr.heading td {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+  }
+
+  .invoice-box table tr.details td {
+    padding-bottom: 20px;
+  }
+
+  .invoice-box table tr.item td {
+    border-bottom: 1px solid #eee;
+  }
+
+  .invoice-box table tr.item.last td {
+    border-bottom: none;
+  }
+
+  .invoice-box table tr.total td:nth-child(2) {
+    border-top: 2px solid #eee;
+    font-weight: bold;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+
+    .invoice-box table tr.information table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  /** RTL **/
+  .rtl {
+    direction: rtl;
+    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  }
+
+  .rtl table {
+    text-align: right;
+  }
+
+  .rtl table tr td:nth-child(2) {
+    text-align: left;
+  }
+
+  .menu {
+    top: 50px;
+  }
+</style>
+{% if error %}
+<p class="text-danger">{{error}}</p>
+{% endif%}
+<br><br><br>
+<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+    <tr class="top">
+      <td colspan="2">
+        <table>
+          <tr>
+            <td class="title">
+              <h1>HOSPITAL SERVICES</h1>
+            </td>
+
+            <td>
+
+              Admit Date: {{admitDate}}<br>
+              Release Date: {{todayDate}}<br>
+              Days Spent: {{day}}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="information">
+      <td colspan="2">
+        <table>
+          <tr>
+            <td>
+              Patient Name : {{name}}<br>
+              Patient Mobile : {{mobile}}<br>
+              Patient Addres : {{address}}<br>
+            </td>
+
+            <td>
+              Doctor Name :<br>
+              {{assignedDoctorName}}<br>
+
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="heading">
+      <td>
+        Disease and Symptoms
+      </td>
+      <td>
+
+      </td>
+
+    </tr>
+
+    <tr class="details">
+      <td>
+        {{symptoms}}
+      </td>
+    </tr>
+    <tr class="heading">
+      <td>
+        Item
+      </td>
+
+      <td>
+        Price
+      </td>
+    </tr>
+
+    <tr class="item">
+      <td>
+        Room Charge of {{day}} Days
+      </td>
+
+      <td>
+        {{roomCharge}}
+      </td>
+    </tr>
+
+    <tr class="item">
+      <td>
+        Doctor Fee
+      </td>
+
+      <td>
+        {{doctorFee}}
+      </td>
+    </tr>
+
+    <tr class="item">
+      <td>
+        Medicine Cost
+      </td>
+
+      <td>
+        {{medicineCost}}
+      </td>
+    </tr>
+
+    <tr class="item last">
+      <td>
+        Other Charge
+      </td>
+
+      <td>
+        {{OtherCharge}}
+      </td>
+    </tr>
+
+    <tr class="total">
+      <td></td>
+
+      <td>
+        Total Rupees : {{total}}
+      </td>
+    </tr>
+
+  </table>
+</div>
+<br>
+<div class="text-center" >
+  <a class=" bg-danger font-weight-bold text-white" style=" width:500px;" href="{% url 'download-pdf' patientId  %}">DOWNLAD</a>
+</div>
+
+
+
+
+</div>
+</div>
+
+</div>
+{% endblock %}

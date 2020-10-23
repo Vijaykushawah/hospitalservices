@@ -1,0 +1,21 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="overlay">
+<div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">  <div class="toggle"> {% include 'todo/modelpopuptodo.html' %} </div>
+<h5 class="text-primary">SHARE YOUR QUERIES:</h5>
+{% if contact %}
+<h5 class="p-3 mb-2 bg-success text-white"><b>{{contact.name}}</b> has sent message('{{contact.query}}') to us Successfully.</h5>
+<br>
+<h5 class="alert alert-success">Thank you so much,We will connect with you soon</h5>{% endif %}
+{% if error %}
+<h4 class="p-3 mb-2 bg-danger text-white">{{error}}</h4>{% endif %}
+<form method="POST">
+  {% csrf_token %}
+{{form.as_ul}}
+<button type="submit" class="btn btn-success">Send</button>
+</form>
+</div></div></div></div>
+{% endblock %}

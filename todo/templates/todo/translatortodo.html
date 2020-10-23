@@ -1,0 +1,39 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<div class="overlay"></div>
+<div class="container"></div>
+{% load static %}
+
+<div class="row ">
+   <div class="col-lg-6 col-md-6 col-sm-6 ">
+
+     <div class="form-group">
+      <span class="bg-info text-white">FROM LANGUAGE({{available_langugages|length}}):</span><span> DETECTED:<hr class="clearfix w-100 d-md-none"><span class="detectedlang bg-white text-success">--</span></span>
+  <select class="form-control fromlangselect" selected="selected" id="fromlangselect" name="fromlangselect">
+    <option value="en" selected="selected">English</option>
+
+    {%  for avlg,avlgname in available_langugages.items %}
+    <option value="{{ avlg }}">{{avlgname}}</option>
+    {% endfor %}
+  </select>
+       <textarea class="form-control fromlangtext" rows="14" name="fromlangtext" id="fromlangtext"></textarea>
+     </div>
+
+   </div>
+   <div class="col-lg-6 col-md-6 col-sm-6 ">
+     <div class="form-group">
+       <span class="bg-info text-white">TO LANGUAGE({{available_langugages|length}}):</span>
+   <select class="form-control tolangselect" selected="selected" id="tolangselect" name="tolangselect">
+     <option value="en" selected="selected">English</option>
+     {%  for avlg,avlgname in available_langugages.items %}
+     <option value="{{ avlg }}">{{avlgname}}</option>
+     {% endfor %}
+   </select>
+       <textarea class="form-control tolangtext" rows="14" id="tolangtext" name="tolangtext"></textarea>
+     </div>
+ <input type="button"  id="getpronunciation" value="GET PRONUNCIATION" class="btn btn-success getpronunciation"  />
+  <input type="button"  id="convertlang" value="GET TEXT" class="btn btn-success convertlang"  />
+   </div>
+  </div>
+
+{% endblock %}

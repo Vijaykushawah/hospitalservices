@@ -1,0 +1,223 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="overlay">
+  <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+
+          <div class="toggle"> {% include 'todo/modelpopuptodo.html' %} </div>
+{% if msg %}
+<h5 class="mt-2 alert alert-info">{{msg}}</h5>
+{% endif %}
+            <h5 class="mt-2 text-success font-weight-bold">My Biodata({{todos|length}})</h5>
+
+
+  {%  for todo in todos %}
+  <hr class="mt-0 mb-4">
+  <div class="row ">
+     <div class="col-lg-6 col-md-6 col-sm-6 about">
+      <img style="max-width:100%;;height:420px;" src="{{todo.photo.url}}" class=""  alt="iMAGE NOT UPLOADEDS">
+      <!-- <span class="text-justify">{{todo.name}}</span> -->
+     </div>
+     <div class="col-lg-6 col-md-6 col-sm-6 ">
+
+      <h3 class="text-primary justify-content-center">Biodata ID:{{todo.id}}<table>
+
+      <tr><td>
+<button class="btn btn-outline-secondary  bg-success "><a target="_blank" style="text-decoration:none;color:#ffffff;" href="{% url 'viewmybiodatatodo' todo.id %}">EDIT</a></button>
+</td><td><form method="POST" action="{% url 'mybiodatadeletetodo' todo.id %}">
+  {% csrf_token %}
+<button type="submit" class="btn btn-danger">DELETE</button></td>
+</form></tr></table>
+      </h3>
+
+        <table style="max-width:80%;background:white;" class=" table-responsive table-hover">
+
+  <tbody>
+    <th colspan="2" class="text-primary">Basic Details</th>
+    {% if todo.created_by %}
+        <tr>
+          <td class="font-weight-bold text-danger  bg-active">CREATED BY:</td>
+          <td class="text-success">{{todo.created_by}}</td>
+        </tr>
+    {% endif %}
+
+{% if todo.name %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">NAME:</td>
+      <td class="text-success"><mark>{{todo.name}}</td>
+    </tr>
+{% endif %}
+{% if todo.age %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">AGE:</td>
+      <td class="text-success">{{todo.age}}</td>
+    </tr>
+{% endif %}
+{% if todo.gender %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">GENDER:</td>
+      <td class="text-success">{{todo.gender}}</td>
+    </tr>
+{% endif %}
+{% if todo.height %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">HEIGHT:</td>
+      <td class="text-success">{{todo.height}}</td>
+    </tr>
+{% endif %}
+{% if todo.body_Type %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">Body Type:</td>
+      <td class="text-success">{{todo.body_Type}}</td>
+    </tr>
+{% endif %}
+{% if todo.complexion %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">COMPLEXION:</td>
+      <td class="text-success">{{todo.complexion}}</td>
+    </tr>
+{% endif %}
+{% if todo.mother_Toung %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MOTHER TOUNG:</td>
+      <td class="text-success">{{todo.mother_Toung}}</td>
+    </tr>
+{% endif %}
+{% if todo.social %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">SOCIAL:</td>
+      <td class="text-success">{{todo.social}}</td>
+    </tr>
+{% endif %}
+{% if todo.cast %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">CAST:</td>
+      <td class="text-success">{{todo.cast}}</td>
+    </tr>
+{% endif %}
+{% if todo.manglik %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MANGLIK:</td>
+      <td class="text-success">{{todo.manglik}}</td>
+    </tr>
+{% endif %}
+
+{% if todo.religion %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">RELIGION:</td>
+      <td class="text-success">{{todo.religion}}</td>
+    </tr>
+{% endif %}
+{% if todo.hobbies %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">HOBBIES:</td>
+      <td class="text-success">{{todo.hobbies}}</td>
+    </tr>
+{% endif %}
+<th colspan="2" class="text-primary">CAERRE DETAILS</th>
+{% if todo.education %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">EDUCATION:</td>
+      <td class="text-success">{{todo.education}}</td>
+    </tr>
+{% endif %}
+{% if todo.profession %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">PROFESSION:</td>
+      <td class="text-success">{{todo.profession}}</td>
+    </tr>
+{% endif %}
+{% if todo.profession_type %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">PROFESSION TYPE:</td>
+      <td class="text-success">{{todo.profession_type}}</td>
+    </tr>
+{% endif %}
+{% if todo.job_location %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">JOB LOCATION:</td>
+      <td class="text-success">{{todo.job_location}}</td>
+    </tr>
+{% endif %}
+
+{% if todo.annual_Income %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">ANNUAL INCOME:</td>
+      <td class="text-success">{{todo.annual_Income}}</td>
+    </tr>
+{% endif %}
+<th colspan="2" class="text-primary">FAMILY DETAILS</th>
+{% if todo.father_name %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">FATHER NAME:</td>
+      <td class="text-success">{{todo.father_name}}</td>
+    </tr>
+{% endif %}
+{% if todo.father_occupation %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">FATHER OCCUPATION:</td>
+      <td class="text-success">{{todo.father_occupation}}</td>
+    </tr>
+{% endif %}
+{% if todo.mother_name %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MOTHER NAME:</td>
+      <td class="text-success">{{todo.mother_name}}</td>
+    </tr>
+{% endif %}
+{% if todo.mother_occupation %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MOTHER OCCUPATION:</td>
+      <td class="text-success">{{todo.mother_occupation}}</td>
+    </tr>
+{% endif %}
+{% if todo.family_details %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">FAMILY DETAILS:</td>
+      <td class="text-success">{{todo.family_details}}</td>
+    </tr>
+{% endif %}
+{% if todo.about %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MORE INFO:</td>
+      <td class="text-success">{{todo.about}}</td>
+    </tr>
+{% endif %}
+<th colspan="2" class="text-primary">CONTACT INFO</th>
+{% if todo.contact_number %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">CONTACT NUMBER:</td>
+      <td class="text-success">{{todo.contact_number}}</td>
+    </tr>
+{% endif %}
+{% if todo.email_ID %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">EMAIL ID:</td>
+      <td class="text-success">{{todo.email_ID}}</td>
+    </tr>
+{% endif %}
+{% if todo.place %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">PLACE:</td>
+      <td class="text-success">{{todo.place}}</td>
+    </tr>
+{% endif %}
+
+
+
+  </tbody>
+</table>
+
+
+
+     </div>
+    </div>
+  {% endfor %}
+
+
+
+  </div></div></div></div>
+{% endblock %}

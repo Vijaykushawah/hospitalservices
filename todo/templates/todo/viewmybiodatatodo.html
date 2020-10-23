@@ -1,0 +1,30 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="overlay">
+  <div clss="container">
+    <h5 class="text-primary"></h5>
+    <div class="row justify-content-center">
+        <div class="col-4">
+
+{% if error %}
+<h2 class="p-3 mb-2 bg-warning text-white">{{error}}</h2>
+{% endif %}
+<table cellpadding="1" cellspacing="1">
+<form method="POST">
+  {% csrf_token %}
+{{form.as_table}}
+
+
+ <tr>
+<td>
+<button type="submit" class="btn btn-success">UPDATE</button></td>
+</form>
+
+
+<form method="POST" action="{% url 'mybiodatatodo'  %}">
+  {% csrf_token %}
+<td><button type="submit" class="btn btn-success">CANCEL</button></td></tr>
+</form></table>
+</div></div></div></div>
+{% endblock %}

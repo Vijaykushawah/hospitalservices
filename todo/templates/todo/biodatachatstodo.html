@@ -1,0 +1,198 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+{% extends 'todo/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="overlay">
+  {% load static %}
+
+      <div class="row ">
+
+<div id="left" class="col-4 ">
+
+<style>
+  .wrapper {
+      display: flex;
+      align-items: stretch;
+  }
+
+  #sidebar {
+      min-width: 250px;
+      max-width: 250px;
+  }
+
+  #sidebar.active {
+      margin-left: -250px;
+  }
+  #sidebar {
+      min-width: 250px;
+      max-width: 250px;
+      min-height: 100vh;
+  }
+  a[data-toggle="collapse"] {
+      position: relative;
+  }
+
+  .dropdown-toggle::after {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+  }
+  @media (max-width: 768px) {
+      #sidebar {
+          margin-left: -250px;
+      }
+      #sidebar.active {
+          margin-left: 0;
+      }
+  }
+  @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
+  body {
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+  }
+
+  p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1em;
+      font-weight: 300;
+      line-height: 1.7em;
+      color: #999;
+  }
+
+  a, a:hover, a:focus {
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.3s;
+  }
+
+  #sidebar {
+      /* don't forget to add all the previously mentioned styles here too */
+      background: #7386D5;
+      color: #fff;
+      transition: all 0.3s;
+  }
+
+  #sidebar .sidebar-header {
+      padding: 20px;
+      background: #6d7fcc;
+  }
+
+  #sidebar ul.components {
+      padding: 20px 0;
+      border-bottom: 1px solid #47748b;
+  }
+
+  #sidebar ul p {
+      color: #fff;
+      padding: 10px;
+  }
+
+  #sidebar ul li a {
+      padding: 10px;
+      font-size: 1.1em;
+      display: block;
+  }
+  #sidebar ul li a:hover {
+      color: #7386D5;
+      background: #fff;
+  }
+
+  #sidebar ul li.active > a, a[aria-expanded="true"] {
+      color: #fff;
+      background: #6d7fcc;
+  }
+  ul ul a {
+      font-size: 0.9em !important;
+      padding-left: 30px !important;
+      background: #6d7fcc;
+  }
+</style>
+  <div class="wrapper">
+      <!-- Sidebar -->
+      <nav id="sidebar">
+          <div class="sidebar-header">
+              <h5>{{request.user.username}}&nbsp<img style="border-radius: 50%" width="35px" height="45px" src="{% static 'todo/images/online.png' %}"></h5>
+          </div>
+
+          <ul class="list-unstyled components">
+
+              <li class="active">
+                  <a href="#" onclick="chathome()" data-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">Home</a>
+
+              </li>
+              <li>
+                  <a class="nav-link" href="#" onclick="location.reload();">INBOX({{inbox|length}})</a>
+              </li>
+
+              <li>
+                  <a class="nav-link" onclick="chatsentbox()" href="#">CHATS({{chats|length}})</a>
+              </li>
+              <li>
+                  <a onclick="pendingrequests()" class="nav-link" href="#">MY PERMISSIONS({{reqapproval|length}})</a>
+              </li>
+              <li>
+                  <a class="nav-link" href="{% url 'mybiodatahometodo' %}">SEARCH PARTNER</a>
+              </li>
+
+              <li>
+                  <a class="nav-link" href="{% url 'biodatahelptodo' %}">HELP</a>
+              </li>
+
+          </ul>
+      </nav>
+
+      <div id="content">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container-fluid">
+
+                  <button type="button" id="sidebarCollapse" class="btn btn-info">
+                      <i class="fa fa-align-left"></i>
+                      <span>Toggle  MENU</span>
+                  </button>
+
+              </div>
+          </nav>
+      </div>
+  </div>
+
+
+</div>
+
+
+<div id="right" class="col-8">
+
+  <ol class="list-group">
+{% regroup inbox by id as todos %}
+<h5><br><br><mark>MY INBOX({{inbox|length}})</mark></h5>
+    {%  for todo in inbox %}
+    {% ifchanged todo.msgfromusername %}
+    <a onclick="jsfunction('{{todo.msgfromusername}}')"  href="#">
+    <li class="list-group-item text-dark list-group-item-action">{{todo.msgfromusername}}
+      </a>
+    {% if todo.msg %}
+    -{{todo.msg}}
+    {% endif %}
+        <button class="btn btn-outline-secondary  bg-danger "><a onclick="blockuser('{{todo.msgfromusername}}','{{todo.mybiodataid}}');" style="text-decoration:none;color:#ffffff;" href="#">BLOCK</a></button>
+<button class="btn btn-outline-secondary  bg-success "><a onclick="unblockuser('{{todo.msgfromusername}}','{{todo.mybiodataid}}');" style="text-decoration:none;color:#ffffff;" href="#">UNBLOCK</a></button>
+    </li>
+
+
+    {% endifchanged %}
+    {% endfor %}
+    </ol>
+
+
+</div>
+<div id="rightinbox" ></div>
+<div id="chathome"></div>
+<div id="rightsentbox"></div>
+<div id="rightsentboxspecificuser"></div>
+
+</div></div>
+{% endblock %}

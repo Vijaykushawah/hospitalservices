@@ -1,0 +1,284 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="overlay">
+  <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            {% if todos.has_other_pages %}
+              <ul class="pagination bg-info">
+                {% if todos.has_previous %}
+                  <li><a class="nav-link" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in todos.paginator.page_range %}
+                  {% if users.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li><a class="nav-link"  href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if todos.has_next %}
+                  <li><a class="nav-link"  href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+  {%  for todo in todos %}
+  <hr class="mt-0 mb-4">
+  {% if todo.hide_profile == 'Show' %}
+  <div class="row ">
+     <div class="col-lg-6 col-md-6 col-sm-6 ">
+      <img  style="max-width:80%;height:420px;" src="{{todo.photo.url}}" class=""  alt="iMAGE NOT UPLOADEDS">
+      <!-- <span class="text-justify">{{todo.name}}</span> -->
+     </div>
+     <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <table style="max-width:80%;background:white;" class=" table-responsive table-hover">
+  <tbody>
+    <th  class="text-primary"><mark>BIODATA ID:-
+{{todo.id}}
+    </th>
+    <th colspan="2" class="text-primary">Basic Details
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/basicDetail.png' %}">
+    </th>
+    {% if todo.created_by %}
+        <tr>
+          <td class="font-weight-bold text-danger  bg-active">CREATED BY:</td>
+          <td class="text-success">{{todo.created_by}}</td>
+        </tr>
+    {% endif %}
+
+{% if todo.name %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">NAME:</td>
+      <td class="text-success"><mark>{{todo.name}}</td>
+    </tr>
+{% endif %}
+{% if todo.age %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">AGE:</td>
+      <td class="text-success">{{todo.age}}</td>
+    </tr>
+{% endif %}
+{% if todo.gender %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">GENDER:</td>
+      <td class="text-success">{{todo.gender}}</td>
+    </tr>
+{% endif %}
+{% if todo.height %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">HEIGHT:</td>
+      <td class="text-success">{{todo.height}}</td>
+    </tr>
+{% endif %}
+{% if todo.body_Type %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">Body Type:</td>
+      <td class="text-success">{{todo.body_Type}}</td>
+    </tr>
+{% endif %}
+{% if todo.complexion %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">COMPLEXION:</td>
+      <td class="text-success">{{todo.complexion}}</td>
+    </tr>
+{% endif %}
+{% if todo.mother_Toung %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MOTHER TOUNG:</td>
+      <td class="text-success">{{todo.mother_Toung}}</td>
+    </tr>
+{% endif %}
+{% if todo.social %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">SOCIAL:</td>
+      <td class="text-success">{{todo.social}}</td>
+    </tr>
+{% endif %}
+{% if todo.cast %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">CAST:</td>
+      <td class="text-success">{{todo.cast}}</td>
+    </tr>
+{% endif %}
+{% if todo.manglik %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MANGLIK:</td>
+      <td class="text-success">{{todo.manglik}}</td>
+    </tr>
+{% endif %}
+
+{% if todo.religion %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">RELIGION:</td>
+      <td class="text-success">{{todo.religion}}</td>
+    </tr>
+{% endif %}
+{% if todo.hobbies %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">HOBBIES:</td>
+      <td class="text-success">{{todo.hobbies}}</td>
+    </tr>
+{% endif %}
+<th colspan="2" class="text-primary">CAREER DETAILS
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/careerDetail.png' %}">
+</th>
+{% if todo.education %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">EDUCATION:</td>
+      {% if todo.contact_visibility == "Visible_To_All" %}
+      <td class="text-success">{{todo.education}}</td>
+      {% else %}
+      <td class="text-success"><img width="40px" height="30px"  src="{% static 'todo/images/hiddendata.png' %}"</td>
+      {% endif %}
+    </tr>
+{% endif %}
+{% if todo.profession %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">PROFESSION:</td>
+      <td class="text-success">{{todo.profession}}</td>
+    </tr>
+{% endif %}
+{% if todo.profession_type %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">PROFESSION TYPE:</td>
+      <td class="text-success">{{todo.profession_type}}</td>
+    </tr>
+{% endif %}
+{% if todo.job_location %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">JOB LOCATION:</td>
+      <td class="text-success">{{todo.job_location}}</td>
+    </tr>
+{% endif %}
+
+{% if todo.annual_Income %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">ANNUAL INCOME:</td>
+      <td class="text-success">{{todo.annual_Income}}</td>
+    </tr>
+{% endif %}
+<th colspan="2" class="text-primary">FAMILY DETAILS
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/familyDetail.png' %}">
+</th>
+{% if todo.father_name %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">FATHER NAME:</td>
+      <td class="text-success">{{todo.father_name}}</td>
+    </tr>
+{% endif %}
+{% if todo.father_occupation %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">FATHER OCCUPATION:</td>
+      <td class="text-success">{{todo.father_occupation}}</td>
+    </tr>
+{% endif %}
+{% if todo.mother_name %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MOTHER NAME:</td>
+      <td class="text-success">{{todo.mother_name}}</td>
+    </tr>
+{% endif %}
+{% if todo.mother_occupation %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MOTHER OCCUPATION:</td>
+      <td class="text-success">{{todo.mother_occupation}}</td>
+    </tr>
+{% endif %}
+{% if todo.family_details %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">FAMILY DETAILS:</td>
+      <td class="text-success">{{todo.family_details}}</td>
+    </tr>
+{% endif %}
+{% if todo.about %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">MORE INFO:</td>
+      <td class="text-success">{{todo.about}}</td>
+    </tr>
+{% endif %}
+<th colspan="2" class="text-primary">CONTACT INFO
+<img style="border-radius: 50%"  width="45px" height="35px" src="{% static 'todo/images/contactDetail.png' %}">
+</th>
+{% if todo.contact_number %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">CONTACT NUMBER:</td>
+      {% if todo.contact_visibility == "Visible_To_All" %}
+
+      <td class="text-success">{{todo.contact_number}}</td>
+      {% else %}
+      <td class="text-success">XXXXXX1987</td>
+      {% endif %}
+    </tr>
+{% endif %}
+{% if todo.email_ID %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">EMAIL ID:</td>
+      {% if todo.email_visibility == "Visible_To_All" %}
+
+      <td class="text-success">{{todo.email_ID}}</td>>
+      {% else %}
+      <td class="text-success">XXXXXX@.com</td>
+      {% endif %}
+
+    </tr>
+{% endif %}
+{% if todo.place %}
+    <tr>
+      <td class="font-weight-bold text-danger bg-active">PLACE:</td>
+      {% if todo.address_detail_visibility == "Visible_To_All" %}
+      <td class="text-success">{{todo.place}}</td>
+        {% else %}
+        <td class="text-success"><img width="40px" height="30px" src="{% static 'todo/images/hiddendata.png' %}"</td>
+        {% endif %}
+    </tr>
+{% endif %}
+<tr>
+  <style>
+
+  </style>
+
+  <td class="font-weight-bold text-danger bg-active viewcontact" id="{{todo.id}}"><a class="" href="#"><img style="border-radius: 50%"  width="75px" height="65px" src="{% static 'todo/images/contactView.png' %}">VIEW</a>
+  </td>
+    <td class="font-weight-bold text-danger connectrequest" id="{{todo.id}}"><a href="#"><img style="border-radius: 50%" width="60px" height="55px" src="{% static 'todo/images/connectNow.png' %}">CONNECT</a></td>
+</tr>
+
+
+  </tbody>
+</table>
+
+
+
+     </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  {% if todos.has_other_pages %}
+    <ul class="pagination bg-info">
+      {% if todos.has_previous %}
+        <li><a class="nav-link" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in todos.paginator.page_range %}
+        {% if users.number == i %}
+          <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+          <li><a class="nav-link"  href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if todos.has_next %}
+        <li><a class="nav-link"  href="?page={{ users.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+
+  </div></div></div></div>
+{% endblock %}

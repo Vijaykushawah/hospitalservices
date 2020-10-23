@@ -1,0 +1,863 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>HOSPITAL SERVICES</title>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% load static %}
+<script type="text/javascript" scr="{% static 'todo/js/main.js' %}">
+</script><script>
+   function CheckChecked()
+   {
+
+   $('#MyPopup').modal('hide');
+
+   }
+  $(document).ready(function(){
+  $("select.fromlangselect,select.tolangselect,textarea#fromlangtext").change(function(){
+    var fromlangval = $(this).children("option:selected").val();
+    var tolangval = $("select.tolangselect").children("option:selected").val();
+    var lefttext=$('textarea#fromlangtext').val();
+    var righttext=$('textarea#tolangtext').val();
+$.ajax({
+url:'{% url 'translatetodo' %}',
+type:'POST',
+dataType: 'json',
+data:{
+    'fromlangval':fromlangval,
+    'tolangval':tolangval,
+    'lefttext':lefttext,
+    'resulttype':'actualtext',
+    'righttext':righttext,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+   {
+         $('textarea#tolangtext').val(data.result);
+         $('.detectedlang').val(data.langdetected);
+
+       }
+});
+  });
+ // alert('jquery supported')
+  });
+$(document).ready(function(){
+  $('.convertlang,.getpronunciation').click(function(){
+    var fromlangval = $("select.fromlangselect").children("option:selected").val();
+    var tolangval = $("select.tolangselect").children("option:selected").val();
+    var lefttext=$('textarea#fromlangtext').val();
+    var righttext=$('textarea#tolangtext').val();
+    var check=$(this).attr('id');
+    if (check == 'convertlang'){
+      var resulttype='actualtext';
+    }else{
+      var resulttype='pronunciation';
+   }
+
+  $.ajax({
+  url:'{% url 'translatetodo' %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'fromlangval':fromlangval,
+    'tolangval':tolangval,
+    'lefttext':lefttext,
+    'resulttype':resulttype,
+    'righttext':righttext,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+         $('textarea#tolangtext').val(data.result);
+         $('.detectedlang').val(data.langdetected);
+       }
+  });
+});
+});
+$(document).ready(function(){
+  $("textarea#fromlangtext").on('change keyup paste', function() {
+    var fromlangval = $("select.fromlangselect").children("option:selected").val();
+    var tolangval = $("select.tolangselect").children("option:selected").val();
+    var lefttext=$('textarea#fromlangtext').val();
+    var righttext=$('textarea#tolangtext').val();
+    var resulttype='actualtext';
+  $.ajax({
+  url:'{% url 'translatetodo' %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'fromlangval':fromlangval,
+    'tolangval':tolangval,
+    'lefttext':lefttext,
+    'resulttype':resulttype,
+    'righttext':righttext,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+         $('textarea#tolangtext').val(data.result);
+         $('.detectedlang').html(data.langdetected);
+       }
+  });
+  });
+
+});
+
+
+$(document).ready(function(){
+
+  $('.crossdata').click(function(){
+
+
+  $.ajax({
+  url:'http://vijaykushawah.pythonanywhere.com/getdemo',
+  type:'POST',
+  data:{
+    'demo':'demo1',
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  crossDomain: true,
+  success: function( data )
+       {
+         data=JSON.parse(JSON.stringify(data));
+         alert('success');
+         console.log(data);
+         var html_to_append = '';
+         $('#img1').attr('src','http://vijaykushawah.pythonanywhere.com/media/portfolio/images/anony.PNG');
+         alert(data.status);
+       },
+  error: function( data )
+        {
+          alert('error');
+          alert(data);
+        }
+  });
+});
+});
+<!--raise view contact popup -->
+
+
+$(document).ready(function(){
+  $('.viewcontact').click(function(){
+    var id=$(this).attr('id');
+
+    $.ajax({
+    url:'{% url 'viewcontacttodo'  %}',
+    type:'POST',
+    dataType: 'json',
+    data:{
+      'biodataid':id,
+      'requesttype':'contact',
+      'csrfmiddlewaretoken': '{{ csrf_token }}'
+    },
+    success: function( data )
+         {
+           alert(data.msg);
+
+         }
+    });
+    alert('Please wait,We are processing your request...')
+  });
+});
+
+<!-- raise connect request -->
+$(document).ready(function(){
+  $('.connectrequest').click(function(){
+    var id=$(this).attr('id');
+
+    $.ajax({
+    url:'{% url 'viewcontacttodo'  %}',
+    type:'POST',
+    dataType: 'json',
+    data:{
+      'biodataid':id,
+      'requesttype':'connect',
+      'csrfmiddlewaretoken': '{{ csrf_token }}'
+    },
+    success: function( data )
+         {
+           alert(data.msg);
+
+         }
+    });
+    alert('Please wait,We are processing your request...')
+  });
+});
+
+<!-- download biodata -->
+$(document).ready(function(){
+  $('.downloadbiodatabtn').click(function(){
+alert('BIODATA is ready');
+
+var HTML_Width = $(".html-content").width();
+    var HTML_Height = $(".html-content").height();
+    var top_left_margin = 35;
+    var PDF_Width = HTML_Width + (top_left_margin * 1);
+    var PDF_Height = (PDF_Width * 1) + (top_left_margin * 1);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+    html2canvas($(".html-content")[0]).then(function (canvas) {
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt', [PDF_Width/2, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        for (var i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*10),canvas_image_width*5,canvas_image_height);
+        }
+        pdf.save("mybiodata_by_vijay.pdf");
+        $(".html-content").hide();
+        $(".downloadbiodata").hide();
+    });
+
+  });
+});
+
+<!-- sidebar biodata -->
+
+$(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#left').toggleClass('col-4');
+        $('#right').toggleClass('col-8');
+        $('#right').toggleClass('col-10');
+    });
+
+});
+
+
+<!-- inboxselecteduser -->
+
+function chathome(){
+  $('#right').hide();
+  $('#rightinbox').hide();
+  $('#rightsentbox').hide();
+  $('#rightsentboxspecificuser').hide();
+  $('#chathome').show()
+  $('#chathome').empty();
+  $('#chathome').addClass('text-success col-8 ');
+  var body = '<div><br><br><h5 class="text-danger"><mark>HELLO WELCOME,HERE YOU CAN DO SOCIAL INTERACTION WITH OTHERS.</mark</h5></div>';
+  $('#chathome').append(body);
+  var body2='<div>Please note down biodata id for which user you want to chat from biodata home page.After forward you can send them request to connect.Once user accepts your request then you can do messages them related to your queries.   </div>';
+  $('#chathome').append(body2);
+  var body3 = '<br><br>In case any problem You can  contact us  on various given plateforms. Our vision is to provide plateform for entire community .We have seen there are multiple plateforms available but this is open to all free of cost';
+  $('#chathome').append(body3);
+  var body4='<br><br><img style="border-radius: 10%" width="100%"  src="{% static 'todo/images/chathome.png' %}"><br>';
+  $('#chathome').append(body4);
+}
+
+function jsfunction(a){
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':a,
+    'sentboxview':'no',
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+         //console.log(typeof data);
+         //console.log(typeof data.msgs);
+//          for (var prop in data.msgs) {
+//   alert("Key:" + prop);
+//   alert("Value:" + data.msgs[prop]);
+// }
+//          alert(JSON.stringify(data.msgs));
+         var obj=JSON.parse(JSON.stringify(data.msgs));
+         $('#right').hide();
+         $('#rightsentboxspecificuser').hide();
+         $('#rightinbox').empty();
+         $('#rightinbox').show();
+         $('#rightinbox').addClass('text-danger col-8 ');
+         $('#rightinbox').append('<ul class="list-group">');
+           $('#rightinbox').append('<h5><br><br><mark>MESSAGES RECEIVED FROM</mark><a href="#"> '+data.result+'<a> </h5>');
+for (var prop in data.msgs) {
+  var msg =data.msgs[prop]['msg'];
+           $('#rightinbox').append('<li class="list-group-item text-dark list-group-item-action"><span class="text-info">'+data.msgs[prop]['msgfromusername']+'</span>:'+msg+'</li>');
+}
+         $('#rightinbox').append('</ul>');
+
+
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+}
+<!-- chatoutbox  -->
+function chatsentbox(){
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'sentboxview':'sentboxview',
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+         $('#rightinbox').hide();
+         $('#rightsentbox').addClass('text-success col-8 ');
+         console.log(typeof data);
+         console.log(typeof data.msgs);
+        //          for (var prop in data.msgs) {
+        //   alert("Key:" + prop);
+        //   alert("Value:" + data.msgs[prop]);
+        // }
+        //          alert(JSON.stringify(data.msgs));
+         var obj=JSON.parse(JSON.stringify(data.msgs));
+         $('#right').hide();
+         $('#rightinbox').hide();
+         $('#chathome').hide();
+         $('#rightsentboxspecificuser').hide();
+         $('#rightsentbox').empty();
+         $('#rightsentbox').show();
+         $('#rightsentbox').innerHTML='';
+         $('#rightsentbox').addClass('text-danger col-8 ');
+         $('#rightsentbox').append('<ul class="list-group">');
+         $('#rightsentbox').append('<br><br>');
+        var newmsg='<center><button class="btn btn-outline-secondary  bg-success "><a class="" onclick="startnewchat();"  style="text-decoration:none;color:#ffffff;" href="#">START NEW CHAT</a></button></center>';
+        $('#rightsentbox').append(newmsg+'<h5 class="font-weight-bold alert-danger"><mark>MY OUTBOX:</mark></h5><br>');
+        for (var prop in data.msgs) {
+        var msg =data.msgs[prop]['msg'];
+           $('#rightsentbox').append('<li class="list-group-item text-dark list-group-item-action"><span class="text-info"><a onclick=sentboxspecificuserrdata("'+data.msgs[prop]['msgtousername']+'"); href="#">'+data.msgs[prop]['msgtousername']+'</a></span>:'+msg+'</li>');
+        }
+         $('#rightsentbox').append('</ul>');
+
+
+
+
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+}
+<!-- start new chat -->
+function startnewchat(){
+
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'sentboxview':'getmychatusers',
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+         $('#right').hide();
+         $('#rightinbox').hide();
+         $('#chathome').hide();
+         $('#rightsentbox').hide();
+         $('#rightsentboxspecificuser').empty();
+         $('#rightsentboxspecificuser').show();
+         $('#rightsentboxspecificuser').innerHTML='';
+         $('#rightsentboxspecificuser').addClass('text-danger col-8 ');
+         $('#rightsentboxspecificuser').append('<br><br><h4 class="text-primary"><mark>SELECT USER</mark><br></h4>');
+
+          var select = document.createElement("select");
+          select.name = "myusers";
+          select.id = "myusers";
+          select.class = "myusers";
+         for (var prop in data.msgs) {
+           var option = document.createElement("option");
+         var requesttousername =data.msgs[prop]['requesttousername'];
+         var requesttobiodataid =data.msgs[prop]['requesttobiodataid'];
+         option.value =requesttobiodataid ;
+         option.text=requesttousername;
+         select.appendChild(option);
+
+
+       }
+       $('#rightsentboxspecificuser').append('<form method="POST" action="#">{% csrf_token %}');
+        $('#rightsentboxspecificuser').append(select);
+        $('#rightsentboxspecificuser').append('<h5 class="text-info">TYPE YOUR MESSAGE</h5>');
+         var form='<textarea name="mymsg" id="mymsg" rows="8" cols="80"></textarea>"<td><button type="submit" onclick="sendmsg1()"; class="btn btn-success sendmsg">SEND</button></td></form>';
+         $('#rightsentboxspecificuser').append(form);
+
+
+
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+}
+
+<!-- send msg -->
+function sendmsg1(){
+  var tobiodataid = $("select#myusers").val();
+  var msg=$('textarea#mymsg').val();
+
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'sentboxview':'sendmymsg',
+    'tobiodataid':tobiodataid,
+    'msg':msg,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+
+alert(data.result);
+location.reload();
+
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+
+}
+
+
+
+<!-- chatoutbox specific user data -->
+
+function sentboxspecificuserrdata(a){
+    $.ajax({
+    url:'{% url 'biodatachatstodo'  %}',
+    type:'POST',
+    dataType: 'json',
+    data:{
+      'msgfromusername':a,
+      'sentboxview':'userspecific',
+      'csrfmiddlewaretoken': '{{ csrf_token }}'
+    },
+    success: function( data )
+         {
+           //console.log(typeof data);
+           //console.log(typeof data.msgs);
+  //          for (var prop in data.msgs) {
+  //   alert("Key:" + prop);
+  //   alert("Value:" + data.msgs[prop]);
+  // }
+  //          alert(JSON.stringify(data.msgs));
+           var obj=JSON.parse(JSON.stringify(data.msgs));
+           $('#right').hide();
+           $('#rightinbox').hide();
+           $('#chathome').hide();
+           $('#rightsentbox').hide();
+           $('#rightsentboxspecificuser').empty();
+           $('#rightsentboxspecificuser').show();
+           $('#rightsentboxspecificuser').innerHTML='';
+           $('#rightsentboxspecificuser').addClass('text-danger col-8 ');
+
+           $('#rightsentboxspecificuser').append('<ul class="list-group">');
+             $('#rightsentboxspecificuser').append('<h5><br><br><mark>MESSAGE SENT TO</mark> <a href="#"> '+data.result+'<a>: </h5>');
+  for (var prop in data.msgs) {
+    var msg =data.msgs[prop]['msg'];
+             $('#rightsentboxspecificuser').append('<li class="list-group-item text-dark list-group-item-action"><span class="text-info">'+data.msgs[prop]['msgfromusername']+'</span>:'+msg+'</li>');
+  }
+           $('#rightsentboxspecificuser').append('</ul>');
+
+
+         },
+         error:function(data){
+           alert('error');
+         }
+    });
+
+}
+
+
+function pendingrequests(){
+
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':'a',
+    'sentboxview':'pendingrequests',
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+
+         //console.log(typeof data);
+         //console.log(typeof data.msgs);
+//          for (var prop in data.msgs) {
+//   alert("Key:" + prop);
+//   alert("Value:" + data.msgs[prop]);
+// }
+//          alert(JSON.stringify(data.msgs));
+         var obj=JSON.parse(JSON.stringify(data.msgs));
+         $('#right').hide();
+         $('#rightinbox').hide();
+         $('#chathome').hide();
+         $('#rightsentbox').hide();
+         $('#rightsentboxspecificuser').empty();
+         $('#rightsentboxspecificuser').show();
+         $('#rightsentboxspecificuser').innerHTML='';
+         $('#rightsentboxspecificuser').addClass('text-danger col-8 ');
+
+         $('#rightsentboxspecificuser').append('<ul class="list-group">');
+           $('#rightsentboxspecificuser').append('<h5><br><br> <mark>PERMISSIONS :</mark> </h5>Note-Once a user is deleted then you can not reset permission for that user.');
+for (var prop in data.msgs) {
+  var contreq =data.msgs[prop]['contact_view_request'];
+  var biodataid =data.msgs[prop]['biodataid'];
+  var conreq =data.msgs[prop]['connect_request'];
+  var rowid =data.msgs[prop]['rowid'];
+  var reqtype=data.msgs[prop]['request_type'];
+  var reqtypid=1;
+  var reqmsg ="wants to<bold><mark> VIEW YOUR CONTACT NUMBER</mark> </bold>";
+  if (reqtype == 'connect'){
+    reqtypid=2
+    reqmsg="wants to<bold><mark> CONNECT WITH YOU ON CHAT</mark> </bold>";
+  }
+
+
+$('#rightsentboxspecificuser').append('<li class="list-group-item text-dark list-group-item-action"><span class="text-info">User'+data.msgs[prop]['request_from']+'</span>: '+reqmsg+' whose biodata id is-<mark>'+biodataid+'</mark> Kindly check requested user profile and approve request.</li><button class="btn btn-outline-secondary  bg-success "><a class="approve" onclick="approverequest('+rowid+','+reqtypid+');"  style="text-decoration:none;color:#ffffff;" href="#">GRANT</a></button>');
+
+$('#rightsentboxspecificuser').append('<button class="btn btn-outline-secondary  bg-danger "><a onclick="rejectequest('+rowid+','+reqtypid+');" style="text-decoration:none;color:#ffffff;" href="#">REVOKE</a></button>');
+$('#rightsentboxspecificuser').append('<button class="btn btn-outline-secondary  bg-danger "><a onclick="deleterequest('+rowid+','+reqtypid+');" style="text-decoration:none;color:#ffffff;" href="#">DELETE</a></button>');                         }
+         $('#rightsentboxspecificuser').append('</ul>');
+
+
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+}
+<!-- approve request -->
+
+function approverequest(rid,b){
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':'abc',
+    'sentboxview':'approvereq',
+    'rowid':rid,
+    'reqtype':b,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+alert(data.result);
+location.reload();
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+
+
+
+}
+
+
+<!-- reject request -->
+
+function rejectequest(rid,b){
+
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':'abc',
+    'sentboxview':'rejectreq',
+    'rowid':rid,
+    'reqtype':b,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+      alert(data.result);
+location.reload();
+
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+}
+
+
+<!-- delete request -->
+function deleterequest(rid,b){
+
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':'abc',
+    'sentboxview':'deletereq',
+    'rowid':rid,
+    'reqtype':b,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+alert(data.result);
+location.reload();
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+
+}
+
+<!-- unblock user -->
+function unblockuser(a,b){
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':a,
+    'sentboxview':'unblockreq',
+    'biodataid':b,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+alert(data.result);
+location.reload();
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+}
+<!-- block user -->
+function blockuser(a,b){
+  $.ajax({
+  url:'{% url 'biodatachatstodo'  %}',
+  type:'POST',
+  dataType: 'json',
+  data:{
+    'msgfromusername':a,
+    'sentboxview':'blockreq',
+    'biodataid':b,
+    'csrfmiddlewaretoken': '{{ csrf_token }}'
+  },
+  success: function( data )
+       {
+alert(data.result);
+location.reload();
+       },
+       error:function(data){
+         alert('error');
+       }
+  });
+}
+
+
+<!-- scroll button added -->
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+ </script>
+
+
+  <link rel="icon" type="image/png" href="{% static 'todo/todo.png' %}" sizes="96x96">
+ <link rel="stylesheet" type="text/css" href="{% static 'todo/css/main.css' %}">
+
+<!-- navbar -->
+ <nav class="navbar navbar-expand-lg  ">
+ <a class="navbar-brand " href="{% url 'home' %}"><img src="{% static 'todo/logo.PNG' %}" width="50%" height="71px" style="border-radius: 50%;">&nbsp &nbsp  <b clss="nav-link">HOSPITAL SERVICES</b></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse " id="navbarSupportedContent">     <ul class="nav navbar-nav mr-4">
+
+
+
+ <li class="nav-item dropdown">
+     <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">TOOLS</a>
+     <ul class="dropdown-menu">
+                    <a href="{% url 'translatortodo' %}" class="dropdown-item">LANGUAGE TRANSLATOR</a>
+                  <a href="{% url 'passwordgeneratortodo' %}" class="dropdown-item">PASSWORD GENERATOR</a>
+                </ul>
+  </li>
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">MANAGE BIODATA</a>
+      <ul class="dropdown-menu">
+                     <a href="{% url 'createbiodatatodo' %}" class="dropdown-item">CREATE BIODATA</a>
+                   <a href="{% url 'mybiodatatodo' %}" class="dropdown-item">UPDATE BIODATA</a>
+                   <a href="{% url 'mybiodataprivacytodo' %}" class="dropdown-item">BIODATA PRIVACY</a>
+                   <a href="{% url 'mybiodatadownloadtodo' %}" class="dropdown-item">DOWNLOAD MY BIODATA </a>
+                   <a href="{% url 'biodatachatstodo' %}" class="dropdown-item">MY CHATS </a>
+
+                 </ul>
+   </li>
+
+   <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">SERVICES</a>
+       <ul class="dropdown-menu">
+
+         <a href="{% url 'userclick_view' 1 %}" class="dropdown-item">ADMIN</a>
+       <a href="{% url 'userclick_view' 2 %}" class="dropdown-item">DOCTOR</a>
+       <a href="{% url 'userclick_view' 3 %}" class="dropdown-item">PATIENT</a>
+                      <a href="{% url 'createtodo' %}" class="dropdown-item">CREATE TASK</a>
+                    <a href="{% url 'currenttodos' %}" class="dropdown-item">PENDING TASKS</a>
+                    <a href="{% url 'completedtodos' %}" class="dropdown-item">COMPLETED TASKS</a>
+                  </ul>
+    </li>
+
+ {% if user.is_authenticated %}
+
+
+
+
+  <li class="nav-item "><a class="nav-link " data-value="blog" href="{% url 'myprofiletodo' %}">HELLO {{user.username}}</a></li>
+ <li class="nav-item">
+  <a class="nav-link " data-value="contact" href="{% url 'completedtodos' %}"><form  action="{% url 'logoutuser' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">LOGOUT</button>
+  </form></a>       </li>
+
+
+
+
+ {% else %}
+
+ <li class="nav-item">
+
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">SIGN UP AS</a>
+        <ul class="dropdown-menu">
+                       <a href="{% url 'signupuser' %}" class="dropdown-item">NORMAL USER</a>
+                     <a href="{% url 'userclick_view' 3 %}" class="dropdown-item">PATIENT</a>
+                     <a href="{% url 'userclick_view' 2 %}" class="dropdown-item">DOCTOR</a>
+                     <a href="{% url 'userclick_view' 1 %}" class="dropdown-item">ADMIN</a>
+                   </ul>
+     </li>
+
+ <li class="nav-item">
+   <a class="nav-link " data-value="team" href="{% url 'loginuser' %}">LOGIN</a>       </li>
+
+
+
+ <!-- <a href="{% url 'signupuser' %}">Sign Up</a>
+ <a href="{% url 'loginuser' %}">Login</a> -->
+
+ {% endif %}
+ <li class="nav-item dropdown">
+     <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">HELP CENTER</a>
+     <ul class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'abouttodo' %}">ABOUT US</a>
+<a class="dropdown-item" href="{% url 'contacttodo' %}" class="dropdown-item">CONTACT US</a>
+<a class="dropdown-item" href="{% url 'portfoliotodo' %}">PORTFOLIO</a>
+
+                </ul>
+  </li>
+  </ul>
+ <!-- <li class="nav-item">
+    <a class="nav-link " data-value="blog" href="#">Blog</a>         </li>
+<li class="nav-item">
+   <a class="nav-link " data-value="team" href="#">         Team</a>       </li>
+<li class="nav-item">
+ <a class="nav-link " data-value="contact" href="#">Contact</a>       </li>
+</ul> -->
+</div></nav>
+
+
+
+
+<!-- {% if user.is_authenticated %}
+
+Logged in as {{user.username}}
+<a href="{% url 'createtodo' %}">Create</a>
+<a href="{% url 'currenttodos' %}">Current</a>
+<a href="{% url 'completedtodos' %}">Completed</a>
+<form  action="{% url 'logoutuser' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+
+{% else %}
+<a href="{% url 'signupuser' %}">Sign Up</a>
+<a href="{% url 'loginuser' %}">Login</a>
+
+{% endif %} -->
+
+<div class="content overflow-auto" id="content" style="background-image: url('{% static 'todo/bg.jpg' %}');background-attachment: fixed;
+ background-size: cover;
+ background-position: center;">
+
+
+
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+</div>
+<style>.scrolltop1 {
+
+  background-attachment: scroll;
+background-clip: border-box;
+background-color: rgba(0, 0, 0, 0);
+background-image: url('{% static 'todo/images/love.png' %}');
+url(../images/love.png)#scrollUp
+background-origin: padding-box;
+background-position-x: 0%;
+background-position-y: 0%;
+background-repeat-x: ;
+background-repeat-y: ;no-repeat;
+background-size: auto;
+bottom: 50px;
+box-sizing: border-box;
+color: rgb(255, 255, 255);
+cursor: pointer;
+display: block;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 25px;
+height: 63px;
+line-height: 0px;
+position: fixed;
+right: 0px;
+text-align: center;
+text-decoration-color: rgb(255, 255, 255);
+text-decoration-line: none;
+text-decoration-style: solid;
+text-size-adjust: 100%;
+transition-delay: 0s;
+transition-duration: 0.5s;
+transition-property: all;
+transition-timing-function: cubic-bezier(0, 0, 0, 1);
+width: 70px;
+z-index: 2147483647;
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+</style>
+<a onclick="topFunction()" id="scrolltop1" class="scrolltop1  shape main-bg new-angle " ><i class="fa fa-angle-up text-white"></i></a>
+<!--  Slider add -->
+
+
+
+{% include 'todo/ceobase.html' %}
+{% include 'todo/personalizedservicebase.html' %}
+{% include 'todo/ourservicebase.html' %}
+{% include 'todo/footer.html' %}

@@ -1,0 +1,28 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="overlay">
+  <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+
+          <div class="toggle"> {% include 'todo/modelpopuptodo.html' %} </div>
+
+            <h5 class="mt-2 text-danger font-weight-bold">PENDING({{todos|length}})</h5>
+                      <hr class="mt-0 mb-4">
+<ol class="list-group">
+  {%  for todo in todos %}
+  <a href="{% url 'viewtodo' todo.id %}">
+  <li class="list-group-item text-dark list-group-item-action">{% if todo.important %}<b>{% endif %}{{todo.title}}{% if todo.important %}</b>{% endif %}
+    </a>
+  {% if todo.memo %}
+  -{{todo.memo}}
+  {% endif %}
+  </li>
+  {% endfor %}
+  </ol>
+   <button class="btn btn-outline-secondary btn-lg bg-info "><a target="_blank" style="text-decoration:none;color:#ffffff;" href="{% url 'exportdatatodo' %}">Export CSV</a></button>
+   <button class="btn btn-outline-secondary btn-lg bg-info "><a target="_blank" style="text-decoration:none;color:#ffffff;" href="{% url 'exportexceldatatodo' %}">Export EXCEL</a></button>
+
+  </div></div></div></div>
+{% endblock %}

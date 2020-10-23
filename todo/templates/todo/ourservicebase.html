@@ -1,0 +1,127 @@
+{% load static %}
+
+<div  class="" style="background-image: url('{% static 'todo/images/servicebackground.png' %}');background-attachment: fixed;
+ background-size: cover;
+ background-position: center;background-blend-mode: luminosity; ">
+  <h2 class="text-danger text-center bg-danger font-weight-bold"><br><mark> SERVICES OFFERED BY US<br></h2>
+
+   <div class="col-lg-12 col-md-12 col-sm-12 ">
+<a href="{% url 'createbiodatatodo' %}">
+    <p style="font-size:30px;"class="text-info text-left font-weight-bold font-italic">
+      <img style="border-radius: 50%" width="130px" height="125px" src="{% static 'todo/images/hospitalservices.png' %}">
+      HOSPITAL MANAGEMENT
+    </p></a>
+    <p style="font-size:22px;"class="text-secondary text-left font-weight-bold font-italic">
+As a Admin,Doctor and Patient you can use below services based on assigned role.
+      <ul class="list-group "><h5 class="font-weight-bold font-italic">ADMIN CAN DO</h5>
+  <li class="list-group-item list-group-item-success">1.SIGNUP THEIR ACCOUNT. THEN LOGIN (NO APPROVAL REQUIRED)</li>
+  <li class="list-group-item list-group-item-info">2.APPROVE THOSE DOCTOR WHO APPLIED FOR JOB IN THEIR HOSPITAL</li>
+  <li class="list-group-item list-group-item-warning">3.DISCHARGE PATIENT WHEN TREATMENT IS DONE</li>
+  <li class="list-group-item list-group-item-danger">4.GENERATE INVOICE ACCORDING TO MEDICINE COST, ROOM CHARGE, DOCTOR CHARGE AND OTHER CHARGE</li>
+  <li class="list-group-item list-group-item-success">5.APPROVE THOSE APPOINTMENTS WHICH IS REQUESTED BY PATIENT</li>
+</ul>
+<ul class="list-group"><h5 class="font-weight-bold font-italic">DOCTOR CAN DO</h5>
+<li class="list-group-item list-group-item-success">1.APPLY FOR JOB IN HOSPITAL</li>
+<li class="list-group-item list-group-item-info">2.APPROVAL REQUIRED BY HOSPITAL ADMIN, THEN ONLY DOCTOR CAN LOGIN</li>
+<li class="list-group-item list-group-item-warning">3.CAN ONLY VIEW THEIR PATIENT DETAILS (SYMPTOMS, NAME, MOBILE ) ASSIGNED TO THAT DOCTOR BY ADMIN</li>
+<li class="list-group-item list-group-item-danger">4.CAN VIEW THEIR DISCHARGED(BY ADMIN)</li>
+<li class="list-group-item list-group-item-danger">5.CAN VIEW THEIR APPOINTMENTS, BOOKED BY ADMIN</li>
+<li class="list-group-item list-group-item-danger">6.CAN DELETE THEIR APPOINTMENT, WHEN DOCTOR ATTENDED THEIR APPOINTMENT</li>
+
+
+</ul>
+<ul class="list-group"><h5 class="font-weight-bold font-italic">PATIENT CAN DO</h5>
+<li class="list-group-item list-group-item-success">1.CREATE ACCOUNT FOR ADMIT IN HOSPITAL</li>
+<li class="list-group-item list-group-item-info">2.APPROVAL REQUIRED BY HOSPITAL ADMIN, THEN ONLY PATIENT CAN LOGIN</li>
+<li class="list-group-item list-group-item-warning">3.CAN VIEW ASSIGNED DOCTOR'S DETAILS LIKE ( SPECIALIZATION, MOBILE, ADDRESS).</li>
+<li class="list-group-item list-group-item-danger">4.CAN VIEW THEIR BOOKED APPOINTMENT STATUS (PENDING/CONFIRMED BY ADMIN).</li>
+<li class="list-group-item list-group-item-success">5.CAN BOOK APPOINTMENTS.(APPROVAL REQUIRED BY ADMIN)</li>
+<li class="list-group-item list-group-item-success">6.CAN VIEW/DOWNLOAD INVOICE PDF (ONLY WHEN THAT PATIENT IS DISCHARGED BY ADMIN).</li>
+
+</ul>
+
+    </p>
+
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 ">
+<a href="{% url 'createtodo' %}">
+ <p style="font-size:30px;"class="text-info text-left font-weight-bold font-italic">
+   <img style="border-radius: 50%" width="130px" height="125px" src="{% static 'todo/images/taskmanagementservice.png' %}">
+   TASK MANAGEMENT
+ </p></a>
+ <p style="font-size:22px;"class="text-secondary text-left font-weight-bold font-italic">
+
+   You can track your to do list with the help of following features.
+
+   <ul class="list-group">
+ <li class="list-group-item list-group-item-success">1.CREATE YOUR TASK LIST, THAT YOU  WANT TO ACHIEVE</li>
+ <li class="list-group-item list-group-item-info">2.GET YOUR PENDING TASKS INFORMATION</li>
+ <li class="list-group-item list-group-item-warning">3.DOWNLOAD YOUR PENDING & COMPLETED TASKS IN CSV/EXCEL</li>
+ <li class="list-group-item list-group-item-danger">4.UPADTE INFORMATION IN  PENDING TASKS</li>
+ <li class="list-group-item list-group-item-success">5.MARK YOUR TASK AS COMPLETED </li>
+ </ul>
+
+ </p>
+
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 ">
+<a href="{% url 'createbiodatatodo' %}">
+  <p style="font-size:30px;"class="text-info text-left font-weight-bold font-italic">
+    <img style="border-radius: 50%" width="130px" height="125px" src="{% static 'todo/images/matrimonyservice.png' %}">
+    BIODATA MANAGEMENT
+  </p></a>
+  <p style="font-size:22px;"class="text-secondary text-left font-weight-bold font-italic">
+To get your perfect match you need to login then you can use below services.
+    <ul class="list-group">
+<li class="list-group-item list-group-item-success">1.CREATE YOUR BIODATA TO CONNECT WITH YOUR MATCHES</li>
+<li class="list-group-item list-group-item-info">2.YOU CAN UPDATATE YOU BIODATA ANY TIME</li>
+<li class="list-group-item list-group-item-warning">3.YOU CAN DOWNLOAD YOUR BIODATA .YOU JUST NEED YOUR BIODATA ID</li>
+<li class="list-group-item list-group-item-danger">4.YOR CAN CHANGE BIODATA PRIVACY SO OTHER USER CAN VIEW ONLY LIMITED INFORMATION</li>
+<li class="list-group-item list-group-item-success">5.YOU CAN DO CHATS WITH YOUR MATCHES FOR BETTER UNDERSTANDING</li>
+</ul>
+
+  </p>
+
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 ">
+<a href="{% url 'translatortodo' %}">
+ <p style="font-size:30px;"class="text-info text-left font-weight-bold font-italic">
+   <img style="border-radius: 50%" width="130px" height="125px" src="{% static 'todo/images/languagetranslatorservice.png' %}">
+   LANGUAGE TRANSLATOR
+ </p></a>
+ <p style="font-size:22px;"class="text-secondary text-left font-weight-bold font-italic">
+
+   Many times we feel urgency to get meaning of text given in another language so,here you can get it quickly.
+   <ul class="list-group">
+  <li class="list-group-item list-group-item-success">1.TYPE OR COPY PASTE  TEXT IN ANY LANGUAGE,TRANSLATOR WILL DETECT LANGUAGE</li>
+  <li class="list-group-item list-group-item-info">2.CHOOSE LANGUAGE IN WHICH YOU WANT TEXT </li>
+  <li class="list-group-item list-group-item-warning">3.YOU CAN CLICK ON GET PRONUNCIATION TO GET TEXT IN LOCAL LANGUAGEL</li>
+
+  </ul>
+
+ </p>
+
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 ">
+<a href="{% url 'passwordgeneratortodo' %}">
+ <p style="font-size:30px;"class="text-info text-left font-weight-bold font-italic">
+   <img style="border-radius: 50%" width="130px" height="125px" src="{% static 'todo/images/passwordgeneratorservice.png' %}">
+   PASSWORD GENERATOR
+ </p></a>
+ <p style="font-size:22px;"class="text-secondary text-left font-weight-bold font-italic">
+
+   We usually do signup in many places where password field has many constraints here you can apply them & get your generated password on the fly.
+   <ul class="list-group">
+  <li class="list-group-item list-group-item-success">1.SELECT DROPDOWN OPTIONS TO GET PASSWORD IN DESIRED FORMAT </li>
+
+  </ul>
+
+ </p>
+
+</div>

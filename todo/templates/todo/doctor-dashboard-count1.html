@@ -1,0 +1,41 @@
+{% load static %}
+<style>
+
+table,td,th{
+border: 1px solid black;
+
+}</style>
+<div class="container">
+  <div class="row">
+    <div class="panel panel-primary" style="max-height: 300px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;">
+      <div class="panel-heading" style="text-align:center;">
+        <h6 class="panel-title text-info font-weight-bold">RECENT APPOINTMENTS FOR YOU</h6>
+      </div>
+      <table class="table table-hover" id="dev-table">
+        <thead>
+          <tr class="bg-primary">
+            <th>Patient Name</th>
+            <th>Picture</th>
+            <th>Description</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        {% for a,p in appointments %}
+        <tr>
+          <td>{{a.patientName}}</td>
+          <td> <img src="{{  p.profile_pic.url }}" alt="Profile Pic" height="40px" width="40px" /></td>
+          <td>{{a.description}}</td>
+          <td>{{p.mobile}}</td>
+          <td>{{p.address}}</td>
+          <td>{{a.appointmentDate}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
