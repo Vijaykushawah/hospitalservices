@@ -12,6 +12,7 @@
 <form method="POST">
   {% csrf_token %}
 {{form|crispy}}
+<br>
 <button type="submit" class="btn btn-success">LOGIN</button>
 </form><a class="btn  btn-google link-primary bg-info text-white " href="{% url 'google_login' %}"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> LOGIN WITH GOOGLE</a>
  or <a href="{% url 'signupuser' %}">SIGNUP</a> here!

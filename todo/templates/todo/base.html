@@ -725,7 +725,15 @@ function topFunction() {
                     <a href="{% url 'completedtodos' %}" class="dropdown-item">COMPLETED TASKS</a>
                   </ul>
     </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">HELP CENTER</a>
+        <ul class="dropdown-menu">
+                       <a class="dropdown-item" href="{% url 'abouttodo' %}">ABOUT US</a>
+    <a class="dropdown-item" href="{% url 'contacttodo' %}" class="dropdown-item">CONTACT US</a>
+    <a class="dropdown-item" href="{% url 'portfoliotodo' %}">PORTFOLIO</a>
 
+                   </ul>
+     </li>
  {% if user.is_authenticated %}
 
 
@@ -765,15 +773,7 @@ function topFunction() {
  <a href="{% url 'loginuser' %}">Login</a> -->
 
  {% endif %}
- <li class="nav-item dropdown">
-     <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-value="portfolio" href="#">HELP CENTER</a>
-     <ul class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'abouttodo' %}">ABOUT US</a>
-<a class="dropdown-item" href="{% url 'contacttodo' %}" class="dropdown-item">CONTACT US</a>
-<a class="dropdown-item" href="{% url 'portfoliotodo' %}">PORTFOLIO</a>
 
-                </ul>
-  </li>
   </ul>
  <!-- <li class="nav-item">
     <a class="nav-link " data-value="blog" href="#">Blog</a>         </li>
